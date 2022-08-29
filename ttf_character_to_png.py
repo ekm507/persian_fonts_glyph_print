@@ -5,6 +5,7 @@
 from os import makedirs
 from PIL import Image, ImageDraw, ImageFont
 from sys import argv
+from unicodedata import name
 
 # تنظیمات
 output_image_name = 'output.png'
@@ -16,8 +17,36 @@ print_location = (100, 100)
 text = argv[1]
 font_name = argv[2]
 font_path = 'ttf/'+font_name
-makedirs(f'png/{text}', exist_ok=True)
-output_image_name = f'png/{text}/{font_name}.png'
+
+persian_alphabet = 'ضصثقفغعهخحجچشسیبلاتنمکگظطزرذدپو'
+persian_numbers = '۱۲۳۴۵۶۷۸۹۰'
+only_char = text.strip('\u200d')
+variation = ''
+
+if only_char in persian_alphabet:
+    char_name = name(only_char).split(' ')[-1]
+    if text[0] == '\u200d':
+        if text[-1] == '\u200d':
+            variation = 'MIDDLE'
+        else:
+            variation = 'FINAL'
+    elif text[-1] == '\u200d':
+        variation = 'INITIAL'
+    else:
+        variation = 'INDEPENDANT'
+else:
+    if only_char in persian_numbers:
+        char_name = name(only_char).split(' ')[-1]
+    else:
+        char_name = name(only_char)
+
+full_char_name = char_name + ' ' + variation
+full_char_name = full_char_name.rstrip(' ')
+
+print(full_char_name)
+
+output_image_name = f'png/{full_char_name}/{font_name}.png'
+makedirs(f'png/{full_char_name}', exist_ok=True)
 
 # چیزهای اولیه
 my_image = Image.new('RGB', image_size, color = 'black')

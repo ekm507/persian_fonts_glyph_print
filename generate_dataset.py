@@ -16,12 +16,16 @@ glyphs_both_sides = list(persian_alphabet_both_sides) + ['\u200d' + c for c in p
 
 glyphs = list(persian_numbers) + list(persian_signs) + glyphs_after_no + glyphs_both_sides
 
+for glyph in glyphs:
+    print(glyph, end=' ')
+print()
+
 try:
     for font in ttfs:
-        print()
-        print('-----------------------------------' + font)
+        # print()
+        print(font)
         for glyph in glyphs:
-            print(glyph, end=' ')
+            # print(glyph, end=' ')
             system(f'python3 ./ttf_character_to_png.py "{glyph}" {font}')
         open('lastfont', 'w').write(font)
 except KeyboardInterrupt:

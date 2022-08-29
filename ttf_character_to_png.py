@@ -43,7 +43,7 @@ else:
 full_char_name = char_name + ' ' + variation
 full_char_name = full_char_name.rstrip(' ')
 
-print(full_char_name)
+# print(full_char_name)
 
 output_image_name = f'png/{full_char_name}/{font_name}.png'
 makedirs(f'png/{full_char_name}', exist_ok=True)

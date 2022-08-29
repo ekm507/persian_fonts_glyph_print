@@ -42,7 +42,7 @@ else:
 
 full_char_name = char_name + ' ' + variation
 full_char_name = full_char_name.rstrip(' ')
-
+full_char_name = full_char_name.replace(' ', '_')
 # print(full_char_name)
 
 output_image_name = f'png/{full_char_name}/{font_name}.png'
